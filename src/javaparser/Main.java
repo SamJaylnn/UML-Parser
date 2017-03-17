@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Scanner; 
 
 public class Main {
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		args= new String[2];
 		//Scanner reader = new Scanner(System.in);  // Reading from System.in
 		System.out.println("Enter a file path: ");
@@ -20,7 +20,7 @@ public class Main {
 		
 		UMLparser parser = new UMLparser(args[0], args[1]);
 		parser.analyze();
-		System.out.println(args[0]);
-		System.out.println(args[1]);
+		//System.out.println(args[0]);
+		//System.out.println(args[1]);
 	}
 }
