@@ -15,7 +15,7 @@ public class Main {
 		//args[1] = reader.next();
 		
 		/* test case 1 */
-		args[0] = "uml_cases/uml-parser-test-1/A.java";
+		args[0] = "uml_cases/uml-parser-test-4/ConcreteSubject.java";
 		args[1] = "test.txt";
 		
 		UMLparser parser = new UMLparser(args[0], args[1]);

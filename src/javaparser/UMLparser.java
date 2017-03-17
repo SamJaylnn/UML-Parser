@@ -31,11 +31,11 @@ public class UMLparser {
 		List<Node> nodes = cu.getChildrenNodes();
 
 		for (int i = 0; i < nodes.size(); i++) {
-			System.out.println(i + " " + nodes.get(i));
+		//	System.out.println(i + " " + nodes.get(i));
 		}
 		
 		
 		new CoIVisitor().visit(cu, null);
-		new MethodVisitor().visit(cu, null);
+
 	}
 }
