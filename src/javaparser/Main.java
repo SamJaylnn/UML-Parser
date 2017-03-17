@@ -9,13 +9,13 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		args= new String[2];
 		//Scanner reader = new Scanner(System.in);  // Reading from System.in
-		System.out.println("Enter a file path: ");
+		System.out.println("Enter a folder path: ");
 		//args[0] = reader.next();
 		System.out.println("Enter a output file name: ");
 		//args[1] = reader.next();
 		
 		/* test case 1 */
-		args[0] = "uml_cases/uml-parser-test-4/ConcreteSubject.java";
+		args[0] = "uml_cases/uml-parser-test-4";
 		args[1] = "test.txt";
 		
 		UMLparser parser = new UMLparser(args[0], args[1]);

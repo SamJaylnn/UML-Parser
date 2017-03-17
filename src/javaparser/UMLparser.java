@@ -15,27 +15,23 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 
 public class UMLparser {
-	private String filepath;
+	private String folderpath;
 	private String outputfile;
 	
-	public UMLparser(String filepath, String outputfile) {
-		this.filepath = filepath;
+	public UMLparser(String folderpath, String outputfile) {
+		this.folderpath = folderpath;
 		this.outputfile = outputfile;
 	}
 	
 	public void analyze() throws Exception {
-		FileInputStream in = new FileInputStream(filepath);
-		CompilationUnit cu = null;
-
-		cu = JavaParser.parse(in);
-		List<Node> nodes = cu.getChildrenNodes();
-
-		for (int i = 0; i < nodes.size(); i++) {
-		//	System.out.println(i + " " + nodes.get(i));
+		File folder = new File(folderpath);
+		for (File fileEntry : folder.listFiles()) {
+			if (fileEntry.isFile() && fileEntry.getName().endsWith(".java")) {
+				//FileInputStream in = new FileInputStream(fileEntry);
+				CompilationUnit cu = null;
+				cu = JavaParser.parse(fileEntry);
+				new CoIVisitor().visit(cu, null);
+			}
 		}
-		
-		
-		new CoIVisitor().visit(cu, null);
-
 	}
 }
