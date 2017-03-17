@@ -28,8 +28,8 @@ public class UMLparser {
 		for (File fileEntry : folder.listFiles()) {
 			if (fileEntry.isFile() && fileEntry.getName().endsWith(".java")) {
 				//FileInputStream in = new FileInputStream(fileEntry);
-				CompilationUnit cu = null;
-				cu = JavaParser.parse(fileEntry);
+				CompilationUnit cu = JavaParser.parse(fileEntry);
+				//cu = JavaParser.parse(fileEntry);
 				new CoIVisitor().visit(cu, null);
 			}
 		}
