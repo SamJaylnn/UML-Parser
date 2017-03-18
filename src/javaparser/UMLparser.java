@@ -1,5 +1,6 @@
 package javaparser;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -13,14 +14,20 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
+import net.sourceforge.plantuml.SourceStringReader;
+
 
 public class UMLparser {
 	private String folderpath;
 	private String outputfile;
+	private List<CoI> coiList;
+    private StringBuilder classDiagram;
 	
 	public UMLparser(String folderpath, String outputfile) {
 		this.folderpath = folderpath;
 		this.outputfile = outputfile;
+		coiList = new ArrayList<CoI>();
+		classDiagram = new StringBuilder();
 	}
 	
 	public void analyze() throws Exception {
@@ -30,7 +37,38 @@ public class UMLparser {
 				CompilationUnit cu = JavaParser.parse(fileEntry);
 				CoIVisitor coiVisitor = new CoIVisitor();
 				coiVisitor.visit(cu, null);
+				coiList.add(coiVisitor.coi);
 			}
 		}
+		plamtUML(coiList);
+		printUML();
+	}
+	
+	public void plamtUML(List<CoI> coiList) {
+		classDiagram.append("@startuml\n");
+		for (int i = 0; i < coiList.size(); i++) {
+			CoI coi = coiList.get(i);
+			if (coi.coiIsInterface) {
+				classDiagram.append("interface ");
+			} else {
+				classDiagram.append("class ");
+			}
+			classDiagram.append(coi.coiName);
+			classDiagram.append("\n");
+			for (int j = 0; j < coi.methodList.size(); j++) {
+				Method method = coi.methodList.get(j);
+				classDiagram.append(coi.coiName);
+				classDiagram.append(" : ");
+				classDiagram.append(method.methodName);
+				classDiagram.append("\n");
+			}
+		}
+		classDiagram.append("\n@enduml");
+	}
+	
+	public void printUML() throws Exception{
+		SourceStringReader r = new SourceStringReader(classDiagram.toString());
+		OutputStream png = new FileOutputStream(outputfile);
+		r.generateImage(png);
 	}
 }

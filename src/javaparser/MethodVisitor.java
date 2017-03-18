@@ -1,14 +1,23 @@
 package javaparser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 class MethodVisitor extends VoidVisitorAdapter{
+		public List<Method> methodList = new ArrayList<Method>();
 		public MethodVisitor() {}
         @Override
-        public void visit(MethodDeclaration n, Object arg) {
-
-        	System.out.println(n);
-            System.out.println(n.getName());
+        public void visit(MethodDeclaration m, Object arg) {
+        	Method method = new Method();
+        	method.methodName = m.getName();
+        	method.methodNameExpr = m.getNameExpr();
+        	method.methodParameters = m.getParameters();
+        	method.methodThrows = m.getThrows();
+        	method.methodType = m.getType();
+        	method.methodTypeParameters = m.getTypeParameters();
+        	methodList.add(method);
         }
     }

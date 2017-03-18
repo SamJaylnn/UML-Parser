@@ -29,15 +29,12 @@ public class CoIVisitor extends VoidVisitorAdapter{
 			coi.coiImplements = c.getImplements();
 			coi.coiTypeParameter = c.getTypeParameters();
 			coi.coiIsInterface = c.isInterface();
-			//List<BodyDeclaration> getmember = new ArrayList<BodyDeclaration>();
-			//getmember = (ArrayList<BodyDeclaration>) c.getMembers();
-			
 
-			//System.out.println(coi.coiExtends);
-
-			//System.out.println("--------------------------------");
 			MethodVisitor methodVisitor = new MethodVisitor();
 			methodVisitor.visit(c, null);
+			coi.methodList = methodVisitor.methodList;
+			//System.out.println(methodVisitor.methodList);
+			//System.out.println("--------------------------------");
 		}
 
 	}

@@ -13,6 +13,7 @@ public class CoI {
 	public List<ClassOrInterfaceType> coiImplements;	
 	public List<TypeParameter> coiTypeParameter;
 	public boolean coiIsInterface;
+	public List<Method> methodList;
 	
 	public CoI() {
 		coiName = new String();
@@ -20,5 +21,6 @@ public class CoI {
 		coiImplements = new ArrayList<ClassOrInterfaceType>();
 		coiTypeParameter = new ArrayList<TypeParameter>();
 		coiIsInterface = false;
+		methodList = new ArrayList<Method>();
 	}
 }
