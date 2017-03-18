@@ -11,14 +11,14 @@ public class CoI {
 	public String coiName;
 	public List<ClassOrInterfaceType> coiExtends;
 	public List<ClassOrInterfaceType> coiImplements;	
-	public List<TypeParameter> getTypeParameter;
+	public List<TypeParameter> coiTypeParameter;
 	public boolean coiIsInterface;
 	
 	public CoI() {
 		coiName = new String();
 		coiExtends = new ArrayList<ClassOrInterfaceType>();
 		coiImplements = new ArrayList<ClassOrInterfaceType>();
-		getTypeParameter = new ArrayList<TypeParameter>();
+		coiTypeParameter = new ArrayList<TypeParameter>();
 		coiIsInterface = false;
 	}
 }

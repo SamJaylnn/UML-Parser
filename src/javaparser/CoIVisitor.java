@@ -19,20 +19,25 @@ import com.github.javaparser.ast.body.*;
 	boolean	isInterface() 
 */
 public class CoIVisitor extends VoidVisitorAdapter{
+		public CoI coi = new CoI();
 		public CoIVisitor() {}
 		@Override
 		public void visit(ClassOrInterfaceDeclaration c, Object arg) {	
 			
-			String getname = c.getName();
-			NameExpr getnameexpr = c.getNameExpr();
-			//ArrayList<BodyDeclaration> getmember = new ArrayList<BodyDeclaration>();
+			coi.coiName = c.getName();
+			coi.coiExtends  = c.getExtends();
+			coi.coiImplements = c.getImplements();
+			coi.coiTypeParameter = c.getTypeParameters();
+			coi.coiIsInterface = c.isInterface();
+			//List<BodyDeclaration> getmember = new ArrayList<BodyDeclaration>();
 			//getmember = (ArrayList<BodyDeclaration>) c.getMembers();
 			
-			//System.out.println(getname);
-			System.out.println(c);
-			//System.out.println(getmember);
-			System.out.println("--------------------------------");
-			new MethodVisitor().visit(c, null);
+
+			//System.out.println(coi.coiExtends);
+
+			//System.out.println("--------------------------------");
+			MethodVisitor methodVisitor = new MethodVisitor();
+			methodVisitor.visit(c, null);
 		}
 
 	}
