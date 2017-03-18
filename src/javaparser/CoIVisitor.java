@@ -1,6 +1,6 @@
 package javaparser;
 
-import java.awt.List;
+import java.util.List;
 import java.util.*;
 
 import com.github.javaparser.ast.expr.NameExpr;

@@ -27,10 +27,9 @@ public class UMLparser {
 		File folder = new File(folderpath);
 		for (File fileEntry : folder.listFiles()) {
 			if (fileEntry.isFile() && fileEntry.getName().endsWith(".java")) {
-				//FileInputStream in = new FileInputStream(fileEntry);
 				CompilationUnit cu = JavaParser.parse(fileEntry);
-				//cu = JavaParser.parse(fileEntry);
-				new CoIVisitor().visit(cu, null);
+				CoIVisitor coiVisitor = new CoIVisitor();
+				coiVisitor.visit(cu, null);
 			}
 		}
 	}
