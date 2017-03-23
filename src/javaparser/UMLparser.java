@@ -71,4 +71,8 @@ public class UMLparser {
 		OutputStream png = new FileOutputStream(outputfile);
 		r.generateImage(png);
 	}
+	
+	public void addDependence() {
+		
+	}
 }
