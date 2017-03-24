@@ -20,6 +20,8 @@ import com.github.javaparser.ast.body.*;
 */
 public class CoIVisitor extends VoidVisitorAdapter{
 		public CoI coi = new CoI();
+		
+		// Override the visit function
 		public CoIVisitor() {}
 		@Override
 		public void visit(ClassOrInterfaceDeclaration c, Object arg) {	
