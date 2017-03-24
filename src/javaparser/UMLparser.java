@@ -42,11 +42,12 @@ public class UMLparser {
 				coiList.add(coiVisitor.coi);
 			}
 		}
-		plamtUML(coiList);
+		plantUML(coiList);
 		printUML();
 	}
 	
-	public void plamtUML(List<CoI> coiList) {
+	// 
+	public void plantUML(List<CoI> coiList) {
 		classDiagram.append("@startuml\n");
 		for (int i = 0; i < coiList.size(); i++) {
 			CoI coi = coiList.get(i);
