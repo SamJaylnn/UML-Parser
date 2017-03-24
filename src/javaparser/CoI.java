@@ -15,6 +15,7 @@ public class CoI {
 	public boolean coiIsInterface;
 	public List<Method> methodList;
 	
+	// Constructor
 	public CoI() {
 		coiName = new String();
 		coiExtends = new ArrayList<ClassOrInterfaceType>();
