@@ -69,6 +69,7 @@ public class UMLparser {
 		classDiagram.append("\n@enduml");
 	}
 	
+	// Generate image
 	public void printUML() throws Exception{
 		SourceStringReader r = new SourceStringReader(classDiagram.toString());
 		OutputStream png = new FileOutputStream(outputfile);
