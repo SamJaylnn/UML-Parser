@@ -46,7 +46,7 @@ public class UMLparser {
 		printUML();
 	}
 	
-	// 
+	// Construct the output string
 	public void plantUML(List<CoI> coiList) {
 		classDiagram.append("@startuml\n");
 		for (int i = 0; i < coiList.size(); i++) {
