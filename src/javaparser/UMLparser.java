@@ -23,6 +23,7 @@ public class UMLparser {
 	private List<CoI> coiList;
     private StringBuilder classDiagram;
 	
+    // Constructor
 	public UMLparser(String folderpath, String outputfile) {
 		this.folderpath = folderpath;
 		this.outputfile = outputfile;
@@ -30,6 +31,7 @@ public class UMLparser {
 		classDiagram = new StringBuilder();
 	}
 	
+	// Read all java files and use visitor to explore them
 	public void analyze() throws Exception {
 		File folder = new File(folderpath);
 		for (File fileEntry : folder.listFiles()) {
