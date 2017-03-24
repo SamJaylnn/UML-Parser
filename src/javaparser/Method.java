@@ -17,6 +17,7 @@ public class Method {
 	public List<ReferenceType> methodThrows;
 	public Type methodType;
 	
+	// Constructor
 	public Method() {
 		methodName = new String();
 		methodNameExpr = new NameExpr();
