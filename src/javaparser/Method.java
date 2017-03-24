@@ -26,12 +26,3 @@ public class Method {
 		methodThrows = new ArrayList<ReferenceType>();		
 	}
 }
-
-/* for reference
-String	getName() 
-NameExpr	getNameExpr() 
-List<Parameter>	getParameters() 
-List<ReferenceType>	getThrows() 
-Type	getType() 
-List<TypeParameter>	getTypeParameters() 
-*/
