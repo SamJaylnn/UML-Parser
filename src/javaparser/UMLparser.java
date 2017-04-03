@@ -71,6 +71,7 @@ public class UMLparser {
 				Constructor constructor = coi.constructorList.get(j);
 				classDiagram.append(coi.coiName);
 				classDiagram.append(" : ");
+				classDiagram.append(getModifier(constructor.modifier));
 				classDiagram.append(constructor.constructorName);
 				classDiagram.append("(");
 				
@@ -92,8 +93,12 @@ public class UMLparser {
 			// add methods
 			for (int j = 0; j < coi.methodList.size(); j++) {
 				Method method = coi.methodList.get(j);
+				if (isPrivate(method.modifier)) {
+					continue;
+				}
 				classDiagram.append(coi.coiName);
 				classDiagram.append(" : ");
+				classDiagram.append(getModifier(method.modifier));
 				classDiagram.append(method.methodName);
 				classDiagram.append("(");
 				
@@ -126,5 +131,18 @@ public class UMLparser {
 	
 	public void addDependence() {
 		
+	}
+	
+	public String getModifier(String modifier) {
+		switch (modifier) {
+		case "PUBLIC" : return "+";
+		case "PROTECTED" : return "#";
+		case "PRIVATE" : return "-";
+		}
+		return "";
+	}
+	
+	public boolean isPrivate(String modifier) {
+		return modifier.equals("PRIVATE");
 	}
 }
