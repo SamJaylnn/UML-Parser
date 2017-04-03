@@ -45,12 +45,6 @@ public class UMLparser {
 		}
 		plantUML(coiList);
 		printUML();
-		
-		/******** test *********/
-		System.out.println("Modifier:");
-		System.out.println(Modifier.PUBLIC);
-		System.out.println(Modifier.PROTECTED);
-		System.out.println(Modifier.PRIVATE);
 	}
 	
 	// Construct the output string
