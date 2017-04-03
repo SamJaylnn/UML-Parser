@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.javaparser.ast.TypeParameter;
+import com.github.javaparser.ast.body.ModifierSet;
 import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.expr.NameExpr;
 import com.github.javaparser.ast.type.ReferenceType;
@@ -16,6 +17,7 @@ public class Method {
 	public List<TypeParameter> methodTypeParameters;
 	public List<ReferenceType> methodThrows;
 	public Type methodType;
+	public String modifier;
 	
 	// Constructor
 	public Method() {
@@ -23,6 +25,7 @@ public class Method {
 		methodNameExpr = new NameExpr();
 		methodParameters = new ArrayList<Parameter>();
 		methodTypeParameters = new ArrayList<TypeParameter>();
-		methodThrows = new ArrayList<ReferenceType>();		
+		methodThrows = new ArrayList<ReferenceType>();	
+		modifier = new String();
 	}
 }

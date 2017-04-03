@@ -12,10 +12,11 @@ class ConstructorVisitor extends VoidVisitorAdapter{
 		// Override the visit function
 		public ConstructorVisitor() {}
         @Override
-        public void visit(ConstructorDeclaration m, Object arg) {
+        public void visit(ConstructorDeclaration c, Object arg) {
         	Constructor constructor = new Constructor();
-        	constructor.constructorName = m.getName();
-        	constructor.constructorParameters = m.getParameters();
+        	constructor.constructorName = c.getName();
+        	constructor.constructorParameters = c.getParameters();
+        	constructor.modifier = ModifierSet.getAccessSpecifier(c.getModifiers()).toString();
         	constructorList.add(constructor);
         }
     }

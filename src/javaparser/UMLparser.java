@@ -3,6 +3,7 @@ package javaparser;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
+import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 
 import com.github.javaparser.JavaParser;
@@ -44,6 +45,12 @@ public class UMLparser {
 		}
 		plantUML(coiList);
 		printUML();
+		
+		/******** test *********/
+		System.out.println("Modifier:");
+		System.out.println(Modifier.PUBLIC);
+		System.out.println(Modifier.PROTECTED);
+		System.out.println(Modifier.PRIVATE);
 	}
 	
 	// Construct the output string
@@ -58,6 +65,31 @@ public class UMLparser {
 			}
 			classDiagram.append(coi.coiName);
 			classDiagram.append("\n");
+			
+			// add constructors
+			for (int j = 0; j < coi.constructorList.size(); j++) {
+				Constructor constructor = coi.constructorList.get(j);
+				classDiagram.append(coi.coiName);
+				classDiagram.append(" : ");
+				classDiagram.append(constructor.constructorName);
+				classDiagram.append("(");
+				
+				// add constructors parameters
+				for (int k = 0; k < constructor.constructorParameters.size(); k++) {
+					StringBuilder strBuilder = new StringBuilder();
+					strBuilder.append(constructor.constructorParameters.get(k));
+					String str = strBuilder.toString();
+					String[] strArray = str.split(" ");
+					classDiagram.append(strArray[1] + " : " + strArray[0]);
+					if (k < constructor.constructorParameters.size() - 1) {
+						classDiagram.append(",");
+					}
+				}	
+				classDiagram.append(")");
+				classDiagram.append("\n");
+			}
+			
+			// add methods
 			for (int j = 0; j < coi.methodList.size(); j++) {
 				Method method = coi.methodList.get(j);
 				classDiagram.append(coi.coiName);
@@ -76,7 +108,6 @@ public class UMLparser {
 						classDiagram.append(",");
 					}
 				}
-				
 				classDiagram.append(")");
 				classDiagram.append(" : ");
 				classDiagram.append(method.methodType);
