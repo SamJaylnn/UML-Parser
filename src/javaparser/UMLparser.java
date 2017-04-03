@@ -64,7 +64,19 @@ public class UMLparser {
 				classDiagram.append(" : ");
 				classDiagram.append(method.methodName);
 				classDiagram.append("(");
-				classDiagram.append(method.methodParameters);
+				
+				// add method parameters
+				for (int k = 0; k < method.methodParameters.size(); k++) {
+					StringBuilder strBuilder = new StringBuilder();
+					strBuilder.append(method.methodParameters.get(k));
+					String str = strBuilder.toString();
+					String[] strArray = str.split(" ");
+					classDiagram.append(strArray[1] + " : " + strArray[0]);
+					if (k < method.methodParameters.size() - 1) {
+						classDiagram.append(",");
+					}
+				}
+				
 				classDiagram.append(")");
 				classDiagram.append(" : ");
 				classDiagram.append(method.methodType);

@@ -23,9 +23,9 @@ class MethodVisitor extends VoidVisitorAdapter{
         	methodList.add(method);
         	
         	/****** test *******/
-        	System.out.println("methodParameters:");
-        	System.out.println(method.methodParameters);
-        	System.out.println("methodTypeParameters:");
-        	System.out.println(method.methodTypeParameters);
+        	for (int i = 0; i < method.methodParameters.size(); i++) {
+	        	System.out.println("i:");
+	        	System.out.println(method.methodParameters.get(i));
+        	}
         }
     }
