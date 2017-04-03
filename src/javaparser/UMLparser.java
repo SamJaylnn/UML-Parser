@@ -63,6 +63,11 @@ public class UMLparser {
 				classDiagram.append(coi.coiName);
 				classDiagram.append(" : ");
 				classDiagram.append(method.methodName);
+				classDiagram.append("(");
+				classDiagram.append(method.methodParameters);
+				classDiagram.append(")");
+				classDiagram.append(" : ");
+				classDiagram.append(method.methodType);
 				classDiagram.append("\n");
 			}
 		}
