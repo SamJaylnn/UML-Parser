@@ -63,6 +63,9 @@ public class UMLparser {
 			// add attribute
 			for (int j = 0; j < coi.attributeList.size(); j++) {
 				Attribute attribute = coi.attributeList.get(j);
+				if (!isPublic(attribute.modifier) && !isPrivate(attribute.modifier)) {
+					continue;
+				}
 				classDiagram.append(coi.coiName);
 				classDiagram.append(" : ");
 				classDiagram.append(getModifier(attribute.modifier));
@@ -70,8 +73,6 @@ public class UMLparser {
 				classDiagram.append(" : ");
 				classDiagram.append(attribute.type);
 				classDiagram.append("\n");
-				
-				System.out.println(getModifier(attribute.modifier) + " " + attribute.attributeName);
 			}
 			
 			// add constructors
@@ -101,7 +102,8 @@ public class UMLparser {
 			// add methods
 			for (int j = 0; j < coi.methodList.size(); j++) {
 				Method method = coi.methodList.get(j);
-				if (isPrivate(method.modifier)) {
+				// ignore if it is not public methods
+				if (!isPublic(method.modifier)) {
 					continue;
 				}
 				classDiagram.append(coi.coiName);
@@ -152,5 +154,9 @@ public class UMLparser {
 	
 	public boolean isPrivate(String modifier) {
 		return modifier.equals("PRIVATE");
+	}
+	
+	public boolean isPublic(String modifier) {
+		return modifier.equals("PUBLIC");
 	}
 }
