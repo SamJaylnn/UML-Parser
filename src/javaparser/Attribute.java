@@ -3,8 +3,6 @@ package javaparser;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.javaparser.ast.body.ModifierSet;
-import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.type.Type;
 
 public class Attribute {
@@ -16,6 +14,6 @@ public class Attribute {
 	// Constructor
 	public Attribute() {
 		attributeName = new String();
-		modifier = new String();;
+		modifier = new String();
 	}
 }
