@@ -3,6 +3,7 @@ public class ConcreteDecoratorA extends Decorator {
 
 	private String addedState;
 
+
     public ConcreteDecoratorA( Component c)
     {
         super( c ) ;

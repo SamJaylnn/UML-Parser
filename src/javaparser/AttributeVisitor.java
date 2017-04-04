@@ -25,12 +25,6 @@ class AttributeVisitor extends VoidVisitorAdapter{
 	            	 attribute.type = type;
 	            	 attribute.modifier = modifier;
 	            	 attributeList.add(attribute);
-	            	 
-	            	 /***** test *****/
-	            	 System.out.println("name:" + attribute.attributeName);
-	            	 System.out.println("type:" + attribute.type);
-	            	 System.out.println("modifier:" + attribute.modifier);
-	            	 System.out.println(" ");
             	 }
              }
         }

@@ -60,6 +60,20 @@ public class UMLparser {
 			classDiagram.append(coi.coiName);
 			classDiagram.append("\n");
 			
+			// add attribute
+			for (int j = 0; j < coi.attributeList.size(); j++) {
+				Attribute attribute = coi.attributeList.get(j);
+				classDiagram.append(coi.coiName);
+				classDiagram.append(" : ");
+				classDiagram.append(getModifier(attribute.modifier));
+				classDiagram.append(attribute.attributeName);
+				classDiagram.append(" : ");
+				classDiagram.append(attribute.type);
+				classDiagram.append("\n");
+				
+				System.out.println(getModifier(attribute.modifier) + " " + attribute.attributeName);
+			}
+			
 			// add constructors
 			for (int j = 0; j < coi.constructorList.size(); j++) {
 				Constructor constructor = coi.constructorList.get(j);
