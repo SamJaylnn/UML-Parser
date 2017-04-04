@@ -15,6 +15,7 @@ public class CoI {
 	public boolean coiIsInterface;
 	public List<Method> methodList;
 	public List<Constructor> constructorList;
+	public List<Attribute> attributeList;
 	
 	// Constructor
 	public CoI() {
@@ -25,5 +26,6 @@ public class CoI {
 		coiIsInterface = false;
 		methodList = new ArrayList<Method>();
 		constructorList = new ArrayList<Constructor>();
+		attributeList = new ArrayList<Attribute>();
 	}
 }

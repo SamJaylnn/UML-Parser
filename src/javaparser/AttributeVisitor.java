@@ -19,17 +19,19 @@ class AttributeVisitor extends VoidVisitorAdapter{
         	 Type type = v.getType();
         	 String modifier = ModifierSet.getAccessSpecifier(v.getModifiers()).toString();
              for (Node vars: v.getChildrenNodes()){
-            	 Attribute attribute = new Attribute();
-            	 attribute.attributeName = ((VariableDeclarator)vars).getId().getName();
-            	 attribute.type = type;
-            	 attribute.modifier = modifier;
-            	 attributeList.add(attribute);
-            	 
-            	 /***** test *****/
-            	 System.out.println("name:" + attribute.attributeName);
-            	 System.out.println("type:" + attribute.type);
-            	 System.out.println("modifier:" + attribute.modifier);
-            	 System.out.println(" ");
+            	 if(vars.getClass() == VariableDeclarator.class){
+	            	 Attribute attribute = new Attribute();
+	            	 attribute.attributeName = ((VariableDeclarator)vars).getId().getName();
+	            	 attribute.type = type;
+	            	 attribute.modifier = modifier;
+	            	 attributeList.add(attribute);
+	            	 
+	            	 /***** test *****/
+	            	 System.out.println("name:" + attribute.attributeName);
+	            	 System.out.println("type:" + attribute.type);
+	            	 System.out.println("modifier:" + attribute.modifier);
+	            	 System.out.println(" ");
+            	 }
              }
         }
     }
