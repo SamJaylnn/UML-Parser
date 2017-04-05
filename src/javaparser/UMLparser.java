@@ -23,6 +23,7 @@ public class UMLparser {
 	private String folderpath;
 	private String outputfile;
 	private List<CoI> coiList;
+	private List<String> relationList;
     private StringBuilder classDiagram;
     private HashMap<String, CoI> classMap;
 	
@@ -31,6 +32,7 @@ public class UMLparser {
 		this.folderpath = folderpath;
 		this.outputfile = outputfile;
 		coiList = new ArrayList<CoI>();
+		relationList = new ArrayList<String>();
 		classDiagram = new StringBuilder();
 		classMap = new HashMap<String, CoI>();
 	}
@@ -77,6 +79,9 @@ public class UMLparser {
 			// add attribute
 			for (int j = 0; j < coi.attributeList.size(); j++) {
 				Attribute attribute = coi.attributeList.get(j);
+				if (classMap.containsKey(attribute.type)) {
+					System.out.println(attribute.type);
+				}
 				//ignore if it is not private or public attribute
 				if (!isPublic(attribute.modifier) && !isPrivate(attribute.modifier)) {
 					continue;
@@ -165,6 +170,8 @@ public class UMLparser {
 				classDiagram.append("\n");
 			}
 		}
+		
+		
 	}
 	
 	// Generate image
