@@ -22,13 +22,5 @@ public class Main {
 			UMLparser parser = new UMLparser(args[0], args[1]);
 			parser.analyze();
 		}
-
-		//System.out.println(args[0]);
-		//System.out.println(args[1]);
-//		String s = "@startuml\nclass ArrayList\n@enduml";
-//		System.out.println(s);
-//		SourceStringReader r = new SourceStringReader(s);
-//		OutputStream png = new FileOutputStream(args[1]);
-//		r.generateImage(png);
 	}
 }
