@@ -18,7 +18,7 @@ public class Method {
 	public String methodType;
 	public String modifier;
 	
-	public List<Attribute> attributeList;
+	public List<String> dependencyList;
 	
 	// Constructor
 	public Method() {
@@ -30,6 +30,6 @@ public class Method {
 		methodType = new String();
 		modifier = new String();
 		
-		attributeList = new ArrayList<Attribute>();
+		dependencyList = new ArrayList<String>();
 	}
 }

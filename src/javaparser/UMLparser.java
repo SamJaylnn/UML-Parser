@@ -189,6 +189,8 @@ public class UMLparser {
 				classDiagram.append(coi.coiExtends.get(j));
 				classDiagram.append("\n");
 			}
+			
+			
 		}
 		
 		for (int i = 0; i < relationList.size(); i++) {

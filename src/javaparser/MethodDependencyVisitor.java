@@ -11,17 +11,25 @@ import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-class MethodVariableVisitor extends VoidVisitorAdapter{
+class MethodDependencyVisitor extends VoidVisitorAdapter{
 	public List<Attribute> attributeList = new ArrayList<Attribute>();
 	
 	// Override the visit function
-	public MethodVariableVisitor() {}
+	public MethodDependencyVisitor() {}
     @Override
-    public void visit(VariableDeclarationExpr cu, Object arg)
-    {   
-    	List <VariableDeclarator> myVars = cu.getVars();
-        for (VariableDeclarator vars: myVars){
-            System.out.println("Variable Name: "+vars.getData());
-            }
+    public void visit(MethodDeclaration m, Object arg)
+    {           	
+    	
+        for (Object node : m.getChildrenNodes()) {
+//            if (!(node instanceof Parameter)) {
+//            	 String[] methodBodys = node.toString().split(" ");
+//
+//                 for (String methodBody : methodBodys) {
+//
+//                     System.out.println(methodBody);
+//                 }
+//            }
+//        	
+        }
     }
 }
