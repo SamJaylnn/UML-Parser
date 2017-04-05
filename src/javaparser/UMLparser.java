@@ -149,15 +149,15 @@ public class UMLparser {
 			
 			for (int j = 0; j < coi.coiImplements.size(); j++) {
 				classDiagram.append(coi.coiName);
-				classDiagram.append(" ..> ");
+				classDiagram.append(" ..|> ");
 				classDiagram.append(coi.coiImplements.get(j));
 				classDiagram.append("\n");
 			}
 			
 			for (int j = 0; j < coi.coiExtends.size(); j++) {
-				classDiagram.append(coi.coiExtends.get(j));
-				classDiagram.append(" <|-- ");
 				classDiagram.append(coi.coiName);
+				classDiagram.append(" --|> ");
+				classDiagram.append(coi.coiExtends.get(j));
 				classDiagram.append("\n");
 			}
 		}
