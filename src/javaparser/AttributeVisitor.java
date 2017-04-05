@@ -16,7 +16,7 @@ class AttributeVisitor extends VoidVisitorAdapter{
 		public AttributeVisitor() {}
         @Override
         public void visit(FieldDeclaration v, Object arg) {
-        	 Type type = v.getType();
+        	 String type = v.getType().toString();
         	 String modifier = ModifierSet.getAccessSpecifier(v.getModifiers()).toString();
              for (Node vars: v.getChildrenNodes()){
             	 if(vars.getClass() == VariableDeclarator.class){

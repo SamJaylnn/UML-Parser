@@ -15,7 +15,7 @@ public class Method {
 	public List<Parameter> methodParameters;
 	public List<TypeParameter> methodTypeParameters;
 	public List<ReferenceType> methodThrows;
-	public Type methodType;
+	public String methodType;
 	public String modifier;
 	
 	// Constructor
@@ -24,7 +24,8 @@ public class Method {
 		methodNameExpr = new NameExpr();
 		methodParameters = new ArrayList<Parameter>();
 		methodTypeParameters = new ArrayList<TypeParameter>();
-		methodThrows = new ArrayList<ReferenceType>();	
+		methodThrows = new ArrayList<ReferenceType>();
+		methodType = new String();
 		modifier = new String();
 	}
 }

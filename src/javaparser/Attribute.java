@@ -7,7 +7,7 @@ import com.github.javaparser.ast.type.Type;
 
 public class Attribute {
 	public String attributeName;
-	public Type type;
+	public String type;
 	public String modifier;
 
 	
@@ -15,5 +15,6 @@ public class Attribute {
 	public Attribute() {
 		attributeName = new String();
 		modifier = new String();
+		type = new String();
 	}
 }
