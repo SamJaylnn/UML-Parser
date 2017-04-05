@@ -2,6 +2,7 @@ package javaparser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.io.*;
 import java.lang.reflect.Modifier;
@@ -82,7 +83,7 @@ public class UMLparser {
 				
 				//add relation ship
 				if (classMap.containsKey(attribute.type)) {
-					String relationStr = coi.coiName + " -- " + attribute.type;
+					String relationStr = coi.coiName + "'many' -- " + attribute.type;
 					relationList.add(relationStr);
 				}
 				
@@ -157,11 +158,11 @@ public class UMLparser {
 						classDiagram.append(",");
 					}
 					
-					//add relation ship
-					if (classMap.containsKey(strArray[0])) {
-						String relationStr = coi.coiName + " ..> " + strArray[0];
-						relationList.add(relationStr);
-					}
+//					//add relation ship
+//					if (classMap.containsKey(strArray[0])) {
+//						String relationStr = coi.coiName + " ..> " + strArray[0];
+//						relationList.add(relationStr);
+//					}
 				}
 				classDiagram.append(")");
 				classDiagram.append(" : ");
@@ -190,15 +191,22 @@ public class UMLparser {
 				classDiagram.append("\n");
 			}
 			
-			for (int j = 0; j < coi.methodList.size(); j++) {
-				Method tmp = coi.methodList.get(j);
-				for (int k = 0; k < tmp.dependencyList.size(); k++) {
-					if (classMap.containsKey(tmp.dependencyList.get(k))) {
-						classDiagram.append(coi.coiName + " ..> " + tmp.dependencyList.get(k));
-						classDiagram.append("\n");
+			HashSet<String> set = new HashSet<String>();
+			if (!coi.coiIsInterface) {
+				for (int j = 0; j < coi.methodList.size(); j++) {
+					Method tmp = coi.methodList.get(j);
+
+					for (int k = 0; k < tmp.dependencyList.size(); k++) {
+						String dependencyStr = tmp.dependencyList.get(k);
+						if (classMap.containsKey(dependencyStr) && !set.contains(dependencyStr)) {
+							classDiagram.append(coi.coiName + " ..> " + dependencyStr);
+							classDiagram.append("\n");
+							set.add(dependencyStr);
+						}
 					}
 				}
-			}			
+			}
+			
 			
 		}
 		
