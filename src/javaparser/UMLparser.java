@@ -80,7 +80,8 @@ public class UMLparser {
 			for (int j = 0; j < coi.attributeList.size(); j++) {
 				Attribute attribute = coi.attributeList.get(j);
 				if (classMap.containsKey(attribute.type)) {
-					System.out.println(attribute.type);
+					String relationStr = coi.coiName + " -- " + attribute.type;
+					relationList.add(relationStr);
 				}
 				//ignore if it is not private or public attribute
 				if (!isPublic(attribute.modifier) && !isPrivate(attribute.modifier)) {
@@ -171,6 +172,10 @@ public class UMLparser {
 			}
 		}
 		
+		for (int i = 0; i < relationList.size(); i++) {
+			classDiagram.append(relationList.get(i));
+			classDiagram.append("\n");
+		}
 		
 	}
 	
