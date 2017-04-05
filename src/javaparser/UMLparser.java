@@ -190,6 +190,15 @@ public class UMLparser {
 				classDiagram.append("\n");
 			}
 			
+			for (int j = 0; j < coi.methodList.size(); j++) {
+				Method tmp = coi.methodList.get(j);
+				for (int k = 0; k < tmp.dependencyList.size(); k++) {
+					if (classMap.containsKey(tmp.dependencyList.get(k))) {
+						classDiagram.append(coi.coiName + " ..> " + tmp.dependencyList.get(k));
+						classDiagram.append("\n");
+					}
+				}
+			}			
 			
 		}
 		

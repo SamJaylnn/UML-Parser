@@ -12,24 +12,20 @@ import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 class MethodDependencyVisitor extends VoidVisitorAdapter{
-	public List<Attribute> attributeList = new ArrayList<Attribute>();
+	public List<String> dependencyList = new ArrayList<String>();
 	
 	// Override the visit function
 	public MethodDependencyVisitor() {}
     @Override
     public void visit(MethodDeclaration m, Object arg)
     {           	
-    	
         for (Object node : m.getChildrenNodes()) {
-//            if (!(node instanceof Parameter)) {
-//            	 String[] methodBodys = node.toString().split(" ");
-//
-//                 for (String methodBody : methodBodys) {
-//
-//                     System.out.println(methodBody);
-//                 }
-//            }
-//        	
+            if (!(node instanceof Parameter)) {
+            	 String[] bodyObjects = node.toString().split(" ");
+                 for (String bodyStr : bodyObjects) {
+                	 dependencyList.add(bodyStr);
+                 }
+            }	
         }
     }
 }
