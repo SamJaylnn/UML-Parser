@@ -144,7 +144,23 @@ public class UMLparser {
 	
 	// Construct the output string of class and interface
 	public void plantUML_dependence(List<CoI> coiList) {
-		
+		for (int i = 0; i < coiList.size(); i++) {
+			CoI coi = coiList.get(i);
+			
+			for (int j = 0; j < coi.coiImplements.size(); j++) {
+				classDiagram.append(coi.coiName);
+				classDiagram.append(" ..> ");
+				classDiagram.append(coi.coiImplements.get(j));
+				classDiagram.append("\n");
+			}
+			
+			for (int j = 0; j < coi.coiExtends.size(); j++) {
+				classDiagram.append(coi.coiExtends.get(j));
+				classDiagram.append(" <|-- ");
+				classDiagram.append(coi.coiName);
+				classDiagram.append("\n");
+			}
+		}
 	}
 	
 	// Generate image
@@ -152,10 +168,6 @@ public class UMLparser {
 		SourceStringReader r = new SourceStringReader(classDiagram.toString());
 		OutputStream png = new FileOutputStream(outputfile);
 		r.generateImage(png);
-	}
-	
-	public void addDependence() {
-		
 	}
 	
 	public String getModifier(String modifier) {
