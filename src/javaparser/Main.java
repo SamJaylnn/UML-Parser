@@ -15,11 +15,14 @@ public class Main {
 		//args[1] = reader.next();
 		
 		/* test case 1 */
-		args[0] = "uml_cases/uml-parser-test-4";
-		args[1] = "test.png";
-		
-		UMLparser parser = new UMLparser(args[0], args[1]);
-		parser.analyze();
+		for (int i = 1; i <= 5; i++) {
+			args[0] = "uml_cases/uml-parser-test-" + Integer.toString(i);
+			args[1] = "uml" + Integer.toString(i) + ".png";
+			
+			UMLparser parser = new UMLparser(args[0], args[1]);
+			parser.analyze();
+		}
+
 		//System.out.println(args[0]);
 		//System.out.println(args[1]);
 //		String s = "@startuml\nclass ArrayList\n@enduml";

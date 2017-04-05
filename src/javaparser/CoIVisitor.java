@@ -42,5 +42,6 @@ public class CoIVisitor extends VoidVisitorAdapter{
 			coi.methodList = methodVisitor.methodList;
 			coi.constructorList = constructorVisitor.constructorList;
 			coi.attributeList = attributeVisitor.attributeList;
+			coi.attributeCollectionList = attributeVisitor.attributeCollectionList;
 		}
 	}

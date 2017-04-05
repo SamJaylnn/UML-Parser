@@ -17,6 +17,7 @@ public class CoI {
 	public List<Method> methodList;
 	public List<Constructor> constructorList;
 	public List<Attribute> attributeList;
+	public List<Attribute> attributeCollectionList;
 	
 	// Constructor
 	public CoI() {
@@ -29,5 +30,6 @@ public class CoI {
 		methodList = new ArrayList<Method>();
 		constructorList = new ArrayList<Constructor>();
 		attributeList = new ArrayList<Attribute>();
+		attributeCollectionList = new ArrayList<Attribute>();
 	}
 }

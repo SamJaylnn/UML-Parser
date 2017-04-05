@@ -81,12 +81,6 @@ public class UMLparser {
 			for (int j = 0; j < coi.attributeList.size(); j++) {
 				Attribute attribute = coi.attributeList.get(j);
 				
-				//add relation ship
-				if (classMap.containsKey(attribute.type)) {
-					String relationStr = coi.coiName + "'many' -- " + attribute.type;
-					relationList.add(relationStr);
-				}
-				
 				//ignore if it is not private or public attribute
 				if (!isPublic(attribute.modifier) && !isPrivate(attribute.modifier)) {
 					continue;
@@ -172,7 +166,7 @@ public class UMLparser {
 		}
 	}
 	
-	// Construct the output string of class and interface
+	// Construct the output string of relations
 	public void plantUML_dependence(List<CoI> coiList) {
 		for (int i = 0; i < coiList.size(); i++) {
 			CoI coi = coiList.get(i);
@@ -191,23 +185,45 @@ public class UMLparser {
 				classDiagram.append("\n");
 			}
 			
-			HashSet<String> set = new HashSet<String>();
+			HashSet<String> dependencyset = new HashSet<String>();
 			if (!coi.coiIsInterface) {
 				for (int j = 0; j < coi.methodList.size(); j++) {
 					Method tmp = coi.methodList.get(j);
 
 					for (int k = 0; k < tmp.dependencyList.size(); k++) {
 						String dependencyStr = tmp.dependencyList.get(k);
-						if (classMap.containsKey(dependencyStr) && !set.contains(dependencyStr)) {
+						if (classMap.containsKey(dependencyStr) && !dependencyset.contains(dependencyStr)) {
 							classDiagram.append(coi.coiName + " ..> " + dependencyStr);
 							classDiagram.append("\n");
-							set.add(dependencyStr);
+							dependencyset.add(dependencyStr);
 						}
 					}
 				}
 			}
 			
+			HashSet<String> associationset = new HashSet<String>();
 			
+			// Association (1 to many)
+			for (int j = 0; j < coi.attributeCollectionList.size(); j++) {
+				Attribute attribute = coi.attributeCollectionList.get(j);
+				//add relation ship
+				if (classMap.containsKey(attribute.type) && !associationset.contains(attribute.type)) {
+					classDiagram.append(coi.coiName + " --\"*\" " + attribute.type);
+					classDiagram.append("\n");
+					associationset.add(attribute.type);
+				}
+			}
+			
+			// Association (1 to 1)
+			for (int j = 0; j < coi.attributeList.size(); j++) {
+				Attribute attribute = coi.attributeList.get(j);
+				//add relation ship
+				if (classMap.containsKey(attribute.type) && !associationset.contains(attribute.type)) {
+					classDiagram.append(coi.coiName + " -- " + attribute.type);
+					classDiagram.append("\n");
+					associationset.add(attribute.type);
+				}
+			}
 		}
 		
 		for (int i = 0; i < relationList.size(); i++) {
