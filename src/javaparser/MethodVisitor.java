@@ -21,6 +21,10 @@ class MethodVisitor extends VoidVisitorAdapter{
         	method.methodType = m.getType().toString();
         	method.methodTypeParameters = m.getTypeParameters();
         	method.modifier = ModifierSet.getAccessSpecifier(m.getModifiers()).toString();
+        	
+        	MethodVariableVisitor attributeVisitor = new MethodVariableVisitor();
+			attributeVisitor.visit(m, null);
+        	//System.out.println(m.getBody() );
         	methodList.add(method);
         }
     }

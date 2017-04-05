@@ -18,6 +18,8 @@ public class Method {
 	public String methodType;
 	public String modifier;
 	
+	public List<Attribute> attributeList;
+	
 	// Constructor
 	public Method() {
 		methodName = new String();
@@ -27,5 +29,7 @@ public class Method {
 		methodThrows = new ArrayList<ReferenceType>();
 		methodType = new String();
 		modifier = new String();
+		
+		attributeList = new ArrayList<Attribute>();
 	}
 }

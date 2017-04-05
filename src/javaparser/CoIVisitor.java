@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.*;
 
 import com.github.javaparser.ast.expr.NameExpr;
+import com.github.javaparser.ast.type.ReferenceType;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.*;
@@ -37,7 +38,7 @@ public class CoIVisitor extends VoidVisitorAdapter{
 			ConstructorVisitor constructorVisitor = new ConstructorVisitor();
 			constructorVisitor.visit(c, null);
 			AttributeVisitor attributeVisitor = new AttributeVisitor();
-			 attributeVisitor.visit(c, null);
+			attributeVisitor.visit(c, null);
 			coi.methodList = methodVisitor.methodList;
 			coi.constructorList = constructorVisitor.constructorList;
 			coi.attributeList = attributeVisitor.attributeList;

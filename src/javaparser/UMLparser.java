@@ -79,14 +79,18 @@ public class UMLparser {
 			// add attribute
 			for (int j = 0; j < coi.attributeList.size(); j++) {
 				Attribute attribute = coi.attributeList.get(j);
+				
+				//add relation ship
 				if (classMap.containsKey(attribute.type)) {
 					String relationStr = coi.coiName + " -- " + attribute.type;
 					relationList.add(relationStr);
 				}
+				
 				//ignore if it is not private or public attribute
 				if (!isPublic(attribute.modifier) && !isPrivate(attribute.modifier)) {
 					continue;
 				}
+				
 				classDiagram.append(coi.coiName);
 				classDiagram.append(" : ");
 				classDiagram.append(getModifier(attribute.modifier));
@@ -115,18 +119,27 @@ public class UMLparser {
 					if (k < constructor.constructorParameters.size() - 1) {
 						classDiagram.append(",");
 					}
+					
+					//add relation ship
+					if (classMap.containsKey(strArray[0])) {
+						String relationStr = coi.coiName + " ..> " + strArray[0];
+						relationList.add(relationStr);
+					}
 				}	
 				classDiagram.append(")");
 				classDiagram.append("\n");
 			}
 			
+			
 			// add methods
 			for (int j = 0; j < coi.methodList.size(); j++) {
 				Method method = coi.methodList.get(j);
+				
 				// ignore if it is not public methods
 				if (!isPublic(method.modifier)) {
 					continue;
 				}
+				
 				classDiagram.append(coi.coiName);
 				classDiagram.append(" : ");
 				classDiagram.append(getModifier(method.modifier));
@@ -142,6 +155,12 @@ public class UMLparser {
 					classDiagram.append(strArray[1] + " : " + strArray[0]);
 					if (k < method.methodParameters.size() - 1) {
 						classDiagram.append(",");
+					}
+					
+					//add relation ship
+					if (classMap.containsKey(strArray[0])) {
+						String relationStr = coi.coiName + " ..> " + strArray[0];
+						relationList.add(relationStr);
 					}
 				}
 				classDiagram.append(")");
