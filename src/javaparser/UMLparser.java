@@ -168,8 +168,15 @@ public class UMLparser {
 	
 	// Construct the output string of relations
 	public void plantUML_dependence(List<CoI> coiList) {
+		//associationMap records the which class has association with other classes
+		HashMap<String, ArrayList<String>> associationMap1to1 = new HashMap<String, ArrayList<String>>();
+		HashMap<String, ArrayList<String>> associationMap1toM = new HashMap<String, ArrayList<String>>();
+		
 		for (int i = 0; i < coiList.size(); i++) {
 			CoI coi = coiList.get(i);
+			
+			associationMap1to1.put(coi.coiName, new ArrayList<String>());
+			associationMap1toM.put(coi.coiName, new ArrayList<String>());
 			
 			for (int j = 0; j < coi.coiImplements.size(); j++) {
 				classDiagram.append(coi.coiName);
@@ -189,7 +196,6 @@ public class UMLparser {
 			if (!coi.coiIsInterface) {
 				for (int j = 0; j < coi.methodList.size(); j++) {
 					Method tmp = coi.methodList.get(j);
-
 					for (int k = 0; k < tmp.dependencyList.size(); k++) {
 						String dependencyStr = tmp.dependencyList.get(k);
 						if (classMap.containsKey(dependencyStr) && !dependencyset.contains(dependencyStr)) {
@@ -201,16 +207,24 @@ public class UMLparser {
 				}
 			}
 			
-			HashSet<String> associationset = new HashSet<String>();
-			
 			// Association (1 to many)
 			for (int j = 0; j < coi.attributeCollectionList.size(); j++) {
 				Attribute attribute = coi.attributeCollectionList.get(j);
 				//add relation ship
-				if (classMap.containsKey(attribute.type) && !associationset.contains(attribute.type)) {
-					classDiagram.append(coi.coiName + " --\"*\" " + attribute.type);
-					classDiagram.append("\n");
-					associationset.add(attribute.type);
+				if (classMap.containsKey(attribute.type)) {
+					
+					ArrayList<String> associationList = associationMap1toM.get(coi.coiName);
+					if (!associationList.contains(attribute.type)){
+						associationList.add(attribute.type);
+					}
+					associationMap1toM.put(coi.coiName, associationList);
+//					if (associationMap.containsKey(coi.coiName) && associationMap.get(coi.coiName).contains(attribute.type)) {
+//						continue;
+//					} else {
+//						classDiagram.append(coi.coiName + " --\"*\" " + attribute.type);
+//						classDiagram.append("\n");
+//						associationMap.put(coi.coiName, );
+//					}
 				}
 			}
 			
@@ -218,13 +232,53 @@ public class UMLparser {
 			for (int j = 0; j < coi.attributeList.size(); j++) {
 				Attribute attribute = coi.attributeList.get(j);
 				//add relation ship
-				if (classMap.containsKey(attribute.type) && !associationset.contains(attribute.type)) {
-					classDiagram.append(coi.coiName + " -- " + attribute.type);
-					classDiagram.append("\n");
-					associationset.add(attribute.type);
+				if (classMap.containsKey(attribute.type)) {
+					ArrayList<String> associationList = associationMap1to1.get(coi.coiName);
+					if (!associationList.contains(attribute.type)){
+						associationList.add(attribute.type);
+					}
+					associationMap1to1.put(coi.coiName, associationList);
 				}
 			}
 		}
+		
+		for (String type : associationMap1toM.keySet()) {
+			ArrayList<String> associationList = associationMap1toM.get(type);
+			for (int j = 0; j < associationList.size(); j++) {
+				String otherType = associationList.get(j);
+				ArrayList<String> tempList = associationMap1toM.get(otherType);
+				// remove the duplicate association
+				if (tempList.contains(type)) {
+					classDiagram.append(type + " \"*\"--\"*\" " + otherType);
+					classDiagram.append("\n");
+					tempList.remove(type);
+					associationMap1toM.put(otherType, tempList);
+				} else {
+					classDiagram.append(type + " --\"*\" " + otherType);
+					classDiagram.append("\n");
+				}
+			}
+		}
+		
+		for (String type : associationMap1to1.keySet()) {
+			ArrayList<String> associationList = associationMap1to1.get(type);
+			for (int j = 0; j < associationList.size(); j++) {
+				String otherType = associationList.get(j);
+				// remove the duplicate association
+				if (associationMap1toM.get(type).contains(otherType) || associationMap1toM.get(otherType).contains(type)) {
+					continue;
+				} else {
+					ArrayList<String> tempList = associationMap1to1.get(otherType);
+					if (tempList.contains(type)) {
+						tempList.remove(type);
+						associationMap1to1.put(otherType, tempList);
+					}
+					classDiagram.append(type + " -- " + otherType);
+					classDiagram.append("\n");
+				}
+			}
+		}
+		
 		
 		for (int i = 0; i < relationList.size(); i++) {
 			classDiagram.append(relationList.get(i));
