@@ -37,10 +37,14 @@ public class CoIVisitor extends VoidVisitorAdapter{
 			ConstructorVisitor constructorVisitor = new ConstructorVisitor();
 			constructorVisitor.visit(c, null);
 			AttributeVisitor attributeVisitor = new AttributeVisitor();
-			attributeVisitor.visit(c, null);
+			 attributeVisitor.visit(c, null);
 			coi.methodList = methodVisitor.methodList;
 			coi.constructorList = constructorVisitor.constructorList;
 			coi.attributeList = attributeVisitor.attributeList;
+			
+			/***** test *******/
+			System.out.println("extend: " + coi.coiExtends);
+			System.out.println("implement: " + coi.coiImplements);
 
 		}
 	}

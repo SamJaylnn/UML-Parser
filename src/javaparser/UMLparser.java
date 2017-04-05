@@ -44,12 +44,22 @@ public class UMLparser {
 			}
 		}
 		plantUML(coiList);
+
 		printUML();
 	}
 	
 	// Construct the output string
 	public void plantUML(List<CoI> coiList) {
 		classDiagram.append("@startuml\n");
+		plantUML_coi(coiList);
+		plantUML_dependence(coiList);
+		classDiagram.append("\n@enduml");
+	}
+	
+	
+	// Construct the output string of class and interface
+	public void plantUML_coi(List<CoI> coiList) {
+
 		for (int i = 0; i < coiList.size(); i++) {
 			CoI coi = coiList.get(i);
 			if (coi.coiIsInterface) {
@@ -63,6 +73,7 @@ public class UMLparser {
 			// add attribute
 			for (int j = 0; j < coi.attributeList.size(); j++) {
 				Attribute attribute = coi.attributeList.get(j);
+				//ignore if it is not private or public attribute
 				if (!isPublic(attribute.modifier) && !isPrivate(attribute.modifier)) {
 					continue;
 				}
@@ -129,7 +140,11 @@ public class UMLparser {
 				classDiagram.append("\n");
 			}
 		}
-		classDiagram.append("\n@enduml");
+	}
+	
+	// Construct the output string of class and interface
+	public void plantUML_dependence(List<CoI> coiList) {
+		
 	}
 	
 	// Generate image
