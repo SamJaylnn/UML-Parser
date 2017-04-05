@@ -1,6 +1,7 @@
 package javaparser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.io.*;
 import java.lang.reflect.Modifier;
@@ -23,6 +24,7 @@ public class UMLparser {
 	private String outputfile;
 	private List<CoI> coiList;
     private StringBuilder classDiagram;
+    private HashMap<String, CoI> classMap;
 	
     // Constructor
 	public UMLparser(String folderpath, String outputfile) {
@@ -30,6 +32,7 @@ public class UMLparser {
 		this.outputfile = outputfile;
 		coiList = new ArrayList<CoI>();
 		classDiagram = new StringBuilder();
+		classMap = new HashMap<String, CoI>();
 	}
 	
 	// Read all java files and use visitor to explore them
@@ -41,6 +44,7 @@ public class UMLparser {
 				CoIVisitor coiVisitor = new CoIVisitor();
 				coiVisitor.visit(cu, null);
 				coiList.add(coiVisitor.coi);
+				classMap.put(coiVisitor.coi.coiName, coiVisitor.coi);
 			}
 		}
 		plantUML(coiList);
