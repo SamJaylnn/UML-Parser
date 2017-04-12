@@ -77,28 +77,7 @@ public class UMLparser {
 			classDiagram.append(coi.coiName);
 			classDiagram.append("\n");
 			
-			// add attribute
-			for (int j = 0; j < coi.attributeList.size(); j++) {
-				Attribute attribute = coi.attributeList.get(j);
-				
-				//ignore if it is not private or public attribute
-				if (!isPublic(attribute.modifier) && !isPrivate(attribute.modifier)) {
-					continue;
-				}
-				
-				//ignore if it has association with such class
-				if (coiMap.containsKey(attribute.type) && !attribute.type.equals(coi.coiName)) {
-					continue;
-				}
-				
-				classDiagram.append(coi.coiName);
-				classDiagram.append(" : ");
-				classDiagram.append(getModifier(attribute.modifier));
-				classDiagram.append(attribute.attributeName);
-				classDiagram.append(" : ");
-				classDiagram.append(attribute.type);
-				classDiagram.append("\n");
-			}
+			HashSet<String> attributeWithSetterAndGetter = new HashSet<String>();
 			
 			// add constructors
 			for (int j = 0; j < coi.constructorList.size(); j++) {
@@ -140,6 +119,23 @@ public class UMLparser {
 					continue;
 				}
 				
+				// to find if it is a setter or a getter of a attribute
+				if(method.methodName.toLowerCase().contains("set") 
+						|| method.methodName.toLowerCase().contains("get")) {
+					boolean found = false;
+					for (int k = 0; k < coi.attributeList.size(); k++) {
+						Attribute attribute = coi.attributeList.get(k);
+						if (method.methodName.toLowerCase().contains(attribute.attributeName.toLowerCase())) {
+							attributeWithSetterAndGetter.add(attribute.attributeName);
+							found = true;
+							break;
+						}
+					}
+					if (found) {
+						continue;
+					}
+				}
+				
 				classDiagram.append(coi.coiName);
 				classDiagram.append(" : ");
 				classDiagram.append(getModifier(method.modifier));
@@ -156,16 +152,38 @@ public class UMLparser {
 					if (k < method.methodParameters.size() - 1) {
 						classDiagram.append(",");
 					}
-					
-//					//add relation ship
-//					if (coiMap.containsKey(strArray[0])) {
-//						String relationStr = coi.coiName + " ..> " + strArray[0];
-//						relationList.add(relationStr);
-//					}
 				}
 				classDiagram.append(")");
 				classDiagram.append(" : ");
 				classDiagram.append(method.methodType);
+				classDiagram.append("\n");
+			}
+			
+			
+			// add attribute
+			for (int j = 0; j < coi.attributeList.size(); j++) {
+				Attribute attribute = coi.attributeList.get(j);
+				
+				//ignore if it is not private or public attribute
+				if (!isPublic(attribute.modifier) && !isPrivate(attribute.modifier)) {
+					continue;
+				}
+				
+				//ignore if it has association with such class
+				if (coiMap.containsKey(attribute.type) && !attribute.type.equals(coi.coiName)) {
+					continue;
+				}
+				
+				classDiagram.append(coi.coiName);
+				classDiagram.append(" : ");
+				if (attributeWithSetterAndGetter.contains(attribute.attributeName)) {
+					classDiagram.append("+");
+				} else {
+					classDiagram.append(getModifier(attribute.modifier));
+				}
+				classDiagram.append(attribute.attributeName);
+				classDiagram.append(" : ");
+				classDiagram.append(attribute.type);
 				classDiagram.append("\n");
 			}
 		}
