@@ -20,12 +20,10 @@ class MethodDependencyVisitor extends VoidVisitorAdapter{
     public void visit(MethodDeclaration m, Object arg)
     {           	
         for (Object node : m.getChildrenNodes()) {
-            //if (!(node instanceof Parameter)) {
-            	 String[] bodyObjects = node.toString().split(" ");
-                 for (String bodyStr : bodyObjects) {
-                	 dependencyList.add(bodyStr);
-                 }
-           // }	
+        	 String[] bodyObjects = node.toString().split(" ");
+             for (String bodyStr : bodyObjects) {
+            	 dependencyList.add(bodyStr);
+             }
         }
     }
 }

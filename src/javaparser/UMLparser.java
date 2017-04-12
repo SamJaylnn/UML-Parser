@@ -26,7 +26,7 @@ public class UMLparser {
 	private List<CoI> coiList;
 	private List<String> relationList;
     private StringBuilder classDiagram;
-    private HashMap<String, CoI> classMap;
+    private HashMap<String, CoI> coiMap;
 	
     // Constructor
 	public UMLparser(String folderpath, String outputfile) {
@@ -35,7 +35,7 @@ public class UMLparser {
 		coiList = new ArrayList<CoI>();
 		relationList = new ArrayList<String>();
 		classDiagram = new StringBuilder();
-		classMap = new HashMap<String, CoI>();
+		coiMap = new HashMap<String, CoI>();
 	}
 	
 	// Read all java files and use visitor to explore them
@@ -47,7 +47,7 @@ public class UMLparser {
 				CoIVisitor coiVisitor = new CoIVisitor();
 				coiVisitor.visit(cu, null);
 				coiList.add(coiVisitor.coi);
-				classMap.put(coiVisitor.coi.coiName, coiVisitor.coi);
+				coiMap.put(coiVisitor.coi.coiName, coiVisitor.coi);
 			}
 		}
 		plantUML(coiList);
@@ -59,7 +59,7 @@ public class UMLparser {
 	public void plantUML(List<CoI> coiList) {
 		classDiagram.append("@startuml\n");
 		plantUML_coi(coiList);
-		plantUML_dependence(coiList);
+		plantUML_relation(coiList);
 		classDiagram.append("\n@enduml");
 	}
 	
@@ -83,6 +83,11 @@ public class UMLparser {
 				
 				//ignore if it is not private or public attribute
 				if (!isPublic(attribute.modifier) && !isPrivate(attribute.modifier)) {
+					continue;
+				}
+				
+				//ignore if it has association with such class
+				if (coiMap.containsKey(attribute.type) && !attribute.type.equals(coi.coiName)) {
 					continue;
 				}
 				
@@ -116,7 +121,7 @@ public class UMLparser {
 					}
 					
 					//add relation ship
-					if (classMap.containsKey(strArray[0])) {
+					if (coiMap.containsKey(strArray[0]) && coiMap.get(strArray[0]).coiIsInterface) {
 						String relationStr = coi.coiName + " ..> " + strArray[0];
 						relationList.add(relationStr);
 					}
@@ -153,7 +158,7 @@ public class UMLparser {
 					}
 					
 //					//add relation ship
-//					if (classMap.containsKey(strArray[0])) {
+//					if (coiMap.containsKey(strArray[0])) {
 //						String relationStr = coi.coiName + " ..> " + strArray[0];
 //						relationList.add(relationStr);
 //					}
@@ -167,7 +172,7 @@ public class UMLparser {
 	}
 	
 	// Construct the output string of relations
-	public void plantUML_dependence(List<CoI> coiList) {
+	public void plantUML_relation(List<CoI> coiList) {
 		//associationMap records the which class has association with other classes
 		HashMap<String, ArrayList<String>> associationMap1to1 = new HashMap<String, ArrayList<String>>();
 		HashMap<String, ArrayList<String>> associationMap1toM = new HashMap<String, ArrayList<String>>();
@@ -178,6 +183,7 @@ public class UMLparser {
 			associationMap1to1.put(coi.coiName, new ArrayList<String>());
 			associationMap1toM.put(coi.coiName, new ArrayList<String>());
 			
+			// implement
 			for (int j = 0; j < coi.coiImplements.size(); j++) {
 				classDiagram.append(coi.coiName);
 				classDiagram.append(" ..|> ");
@@ -185,6 +191,7 @@ public class UMLparser {
 				classDiagram.append("\n");
 			}
 			
+			// inheritance
 			for (int j = 0; j < coi.coiExtends.size(); j++) {
 				classDiagram.append(coi.coiName);
 				classDiagram.append(" --|> ");
@@ -192,13 +199,15 @@ public class UMLparser {
 				classDiagram.append("\n");
 			}
 			
+			// dependency
 			HashSet<String> dependencyset = new HashSet<String>();
 			if (!coi.coiIsInterface) {
 				for (int j = 0; j < coi.methodList.size(); j++) {
 					Method tmp = coi.methodList.get(j);
 					for (int k = 0; k < tmp.dependencyList.size(); k++) {
 						String dependencyStr = tmp.dependencyList.get(k);
-						if (classMap.containsKey(dependencyStr) && !dependencyset.contains(dependencyStr)) {
+						if (coiMap.containsKey(dependencyStr) && coiMap.get(dependencyStr).coiIsInterface 
+								&& !dependencyset.contains(dependencyStr)) {
 							classDiagram.append(coi.coiName + " ..> " + dependencyStr);
 							classDiagram.append("\n");
 							dependencyset.add(dependencyStr);
@@ -211,20 +220,13 @@ public class UMLparser {
 			for (int j = 0; j < coi.attributeCollectionList.size(); j++) {
 				Attribute attribute = coi.attributeCollectionList.get(j);
 				//add relation ship
-				if (classMap.containsKey(attribute.type)) {
+				if (coiMap.containsKey(attribute.type)) {
 					
 					ArrayList<String> associationList = associationMap1toM.get(coi.coiName);
 					if (!associationList.contains(attribute.type)){
 						associationList.add(attribute.type);
 					}
 					associationMap1toM.put(coi.coiName, associationList);
-//					if (associationMap.containsKey(coi.coiName) && associationMap.get(coi.coiName).contains(attribute.type)) {
-//						continue;
-//					} else {
-//						classDiagram.append(coi.coiName + " --\"*\" " + attribute.type);
-//						classDiagram.append("\n");
-//						associationMap.put(coi.coiName, );
-//					}
 				}
 			}
 			
@@ -232,7 +234,7 @@ public class UMLparser {
 			for (int j = 0; j < coi.attributeList.size(); j++) {
 				Attribute attribute = coi.attributeList.get(j);
 				//add relation ship
-				if (classMap.containsKey(attribute.type)) {
+				if (coiMap.containsKey(attribute.type)) {
 					ArrayList<String> associationList = associationMap1to1.get(coi.coiName);
 					if (!associationList.contains(attribute.type)){
 						associationList.add(attribute.type);
