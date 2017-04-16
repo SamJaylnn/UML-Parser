@@ -262,6 +262,7 @@ public class UMLparser {
 			}
 		}
 		
+		// construct the out put string (association 1 to many or many to many)
 		for (String type : associationMap1toM.keySet()) {
 			ArrayList<String> associationList = associationMap1toM.get(type);
 			for (int j = 0; j < associationList.size(); j++) {
