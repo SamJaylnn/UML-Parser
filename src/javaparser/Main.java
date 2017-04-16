@@ -15,13 +15,6 @@ public class Main {
 			UMLparser parser = new UMLparser(args[0], args[1]);
 			parser.analyze();	
 		}
-		/* test case 1 */
-		/*for (int i = 1; i <= 5; i++) {
-			args[0] = "uml_cases/uml-parser-test-" + Integer.toString(i);
-			args[1] = "uml" + Integer.toString(i) + ".png";
-			
-			UMLparser parser = new UMLparser(args[0], args[1]);
-			parser.analyze();
-		}*/
+
 	}
 }
