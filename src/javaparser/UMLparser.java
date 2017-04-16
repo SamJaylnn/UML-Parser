@@ -301,7 +301,7 @@ public class UMLparser {
 			}
 		}
 		
-		
+		// construct the out put string (relation of constructor)
 		for (int i = 0; i < relationList.size(); i++) {
 			classDiagram.append(relationList.get(i));
 			classDiagram.append("\n");
