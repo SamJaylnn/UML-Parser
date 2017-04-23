@@ -20,7 +20,7 @@ public class Method {
 	
 	public List<String> dependencyList;
 	
-	// Constructor
+	// Constructor of class Method
 	public Method() {
 		methodName = new String();
 		methodNameExpr = new NameExpr();
