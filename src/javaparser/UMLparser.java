@@ -28,7 +28,7 @@ public class UMLparser {
     private StringBuilder classDiagram;
     private HashMap<String, CoI> coiMap;
 	
-    // Constructor
+    // Constructor of class UMLparser
 	public UMLparser(String folderpath, String outputfile) {
 		this.folderpath = folderpath;
 		this.outputfile = outputfile;
