@@ -4,7 +4,7 @@ arg1=$1
 arg2=$2
 
 ##directory where jar file is located    
-dir=E:/javaworkspace/UMLparser
+##dir=E:/javaworkspace/UMLparser
 
 ##jar file name
 jar_name=umlparser.jar
@@ -16,4 +16,4 @@ if [ -z "$1" ] || [ -z "$2" ]; then
         exit 1
 fi
 
-java -jar $dir/$jar_name arg1 arg2
+java -jar $jar_name arg1 arg2
