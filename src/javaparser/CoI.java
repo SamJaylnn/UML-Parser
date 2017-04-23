@@ -19,7 +19,7 @@ public class CoI {
 	public List<Attribute> attributeList;
 	public List<Attribute> attributeCollectionList;
 	
-	// Constructor
+	// Constructor of class CoI
 	public CoI() {
 		coiName = new String();
 		coiExtends = new ArrayList<ClassOrInterfaceType>();
