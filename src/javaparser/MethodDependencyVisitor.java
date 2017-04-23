@@ -14,7 +14,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 class MethodDependencyVisitor extends VoidVisitorAdapter{
 	public List<String> dependencyList = new ArrayList<String>();
 	
-	// Override the visit function
+	// Override the visit function to visit the method dependencies
 	public MethodDependencyVisitor() {}
     @Override
     public void visit(MethodDeclaration m, Object arg)
