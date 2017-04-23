@@ -9,7 +9,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 class MethodVisitor extends VoidVisitorAdapter{
 		public List<Method> methodList = new ArrayList<Method>();
 		
-		// Override the visit function
+		// Override the visit function to visit methods
 		public MethodVisitor() {}
         @Override
         public void visit(MethodDeclaration m, Object arg) {
