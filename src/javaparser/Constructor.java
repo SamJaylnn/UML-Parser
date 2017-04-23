@@ -11,7 +11,7 @@ public class Constructor {
 	public String modifier;
 
 	
-	// Constructor
+	// Constructor of class Constructor
 	public Constructor() {
 		constructorName = new String();
 		constructorParameters = new ArrayList<Parameter>();
