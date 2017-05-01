@@ -14,7 +14,7 @@ public class Main {
 		}
 
 		// the input could be: uml_cases/uml-parser-test-1
-		// and the out put could be: uml.png
+		// and the output could be: uml.png
 
 	}
 }

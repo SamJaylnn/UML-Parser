@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ "$#" -ne 2 ] || ! [ -d "$1" ]; then
+  echo "Usage: umlparser <source folder> <output file name>"
+  echo "Example: umlparser uml_cases/uml-parser-test-1 uml.png"
+else
+  IN="$1"
+  OUT="$2"
+  jar_name="umlparser.jar"
+  #echo "$1" "$2"
+  #echo "$IN" "$OUT"
+  #echo "${arrOUT[0]}" "${arrOUT[1]}"
+
+  java -jar "$jar_name" "$IN" "$OUT"
+fi
